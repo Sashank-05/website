@@ -11,10 +11,10 @@ html {
 
 
 
+
 body{
-    padding: 5%;
-    margin-right: 25%;
-    margin-left: 25%;
+    margin-right: 25vh;
+    margin-left: 25vh;
 }
 
 .centerbold {
@@ -134,4 +134,11 @@ body{
 
 .light-mode .fluent-button {
     color: darkgray;
+}
+
+@media screen and (max-width: 980px) {
+    body {
+        margin-right: 5vh;
+        margin-left: 5vh;
+    }
 }
