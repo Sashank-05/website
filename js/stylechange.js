@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const topContent = document.getElementById('topcontent');
 
     nameElement.addEventListener('animationend', function() {
-        topContent.style.opacity = '1';
-        topContent.style.transition = 'opacity 0.5s ease';
+        topContent.classList.add('visible'); // Add a class to make it visible
     });
 });

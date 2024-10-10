@@ -1,7 +1,7 @@
 @font-face {
-    font-family: 'Euclid';
+    font-family: 'Lexend';
     font-weight: 1 999;
-    src: url('fonts/AndroidEuclid-Medium.otf') format('opentype');
+    src: url('fonts/lexend.ttf') format('truetype');
 }
 
 html {
@@ -39,18 +39,19 @@ html {
     top:0;
 }
 
+#name {
+    margin: 10px;
+    transition: all 0.5s cubic-bezier(1, 0, .6, 1);
+    font-weight: 400;
+    z-index: 20;
+}
+
 #name:hover {
-    animation: namehover 0.5s cubic-bezier(0, .95, .26, 1) forwards; /* Play the hover animation */
+    letter-spacing: 1rem;
+    transition: letter-spacing 0.5s cubic-bezier(0, .95, .26, 1), font-weight 0.5s cubic-bezier(0, .95, .26, 1);
     font-weight: 900;
 }
 
-#name:hover {
-    animation: namehover 0.8s cubic-bezier(0, .95, .26, 1) forwards; /* On hover */
-}
-
-#name:not(:hover) {
-    animation: namehover-reverse 0.5s cubic-bezier(0, .25, .26, 1) forwards; /* Reverse on hover out */
-}
 
 @keyframes namehover {
     0% {
@@ -97,22 +98,7 @@ html {
 }
 #topcontent.visible {
     opacity: 1; /* Make visible when class is added */
+    display: flex;
 }
 
 
-.name {
-    /*transform: rotate(90deg);*/
-    writing-mode: vertical-rl;
-    text-orientation: upright !important;
-    letter-spacing: -1.5rem;
-    font-size: 4em;
-    top:0px;
-
-}
-
-.name:hover {
-
-    letter-spacing: -0.95rem !important;
-    transition: letter-spacing 0.5s cubic-bezier(0, .95, .26, 1), font-weight 0.5s cubic-bezier(0, .95, .26, 1);
-    font-weight: 900;
-}
