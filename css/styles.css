@@ -1,6 +1,6 @@
 
 @font-face {
-    font-family: 'Lexend';    
+    font-family: 'Lexend';
     font-weight: 1 999;
     src: url('fonts/lexend.ttf') format('truetype');
 }
@@ -19,14 +19,14 @@ html {
 
 
 
-    
+
     --bg: #491b81;
     --text:#1A1B41;
     --body:#ffe7f5;
     --hover:#ff2b4e;
     --active: #42049b;
     --hover-text: #881182;
-    
+
     --highlight:aliceblue;
 
     --active-text:aliceblue;
@@ -55,9 +55,9 @@ html {
     --button-bg: var(--hover-text);
 
 
-    --bg-gradient: 
-      linear-gradient(0deg,transparent 47%, rgba(255, 255, 255, 0.05) 47%,rgba(255, 255, 255, 0.05) 53%,transparent 53%),
-      linear-gradient(90deg,transparent 47%,   rgba(255, 255, 255, 0.05) 47%,rgba(255, 255, 255, 0.05) 53%,transparent 53%);/*linear-gradient(338deg, #5465FF 0%, #8b97ff 100%);*/
+    --bg-gradient:
+            linear-gradient(0deg,transparent 47%, rgba(255, 255, 255, 0.05) 47%,rgba(255, 255, 255, 0.05) 53%,transparent 53%),
+            linear-gradient(90deg,transparent 47%,   rgba(255, 255, 255, 0.05) 47%,rgba(255, 255, 255, 0.05) 53%,transparent 53%);/*linear-gradient(338deg, #5465FF 0%, #8b97ff 100%);*/
     --nav-mobile-bg-gradient: var(--button-bg);/*linear-gradient(185deg, hsl(320, 100%, 85%) 0%,hsl(17, 100%, 83%) 20%,hsl(44, 100%, 87%) 40%,hsl(97, 100%, 94%) 60%,hsl(165, 100%, 91%) 80%, rgb(184, 229, 255) 100%)*/;
     --nav-desktop-bg:  var(--button-bg);/*linear-gradient(185deg, hsl(320, 100%, 72%) 0%,hsl(17, 100%, 71%) 20%,hsl(44, 100%, 76%) 40%,hsl(98, 100%, 90%) 60%,hsl(165, 100%, 78%) 80%, rgb(35, 149, 214) 100%);*/
     --nav-shadow-color: var(--hover-text);
@@ -98,7 +98,7 @@ html {
     --button-recess-color:  var(--dark-shadow);
     --box-recess-color: var(--recess);
     --box-border-color: var(--recess);
-  }
+}
 
 
 @media only screen and (orientation: portrait) {
@@ -111,16 +111,16 @@ html {
         top:0px;
 
     }
-    
+
     .woop:hover {
 
-    letter-spacing: -0.95rem !important;
-    transition: letter-spacing 0.5s cubic-bezier(0, .95, .26, 1), font-weight 0.5s cubic-bezier(0, .95, .26, 1);
-    font-weight: 900;
-}
+        letter-spacing: -0.95rem !important;
+        transition: letter-spacing 0.5s cubic-bezier(0, .95, .26, 1), font-weight 0.5s cubic-bezier(0, .95, .26, 1);
+        font-weight: 900;
+    }
     nav{
-        
-    bottom: 0;
+
+        bottom: 0;
     }
     nav-list {
         display: table-column !important;
@@ -201,7 +201,7 @@ html {
 
     hero-container
     {
-        
+
         align-items: stretch;
     }
 
@@ -235,7 +235,7 @@ html {
     }
     banner > toppart{
         color:hsla(51, 100%, 50%, 1);
-    }   
+    }
 
     hideonmobile
     {
@@ -258,22 +258,22 @@ AMONG US
         display: none;
     }
     banner{
-        
-    font-size:1.5em;
+
+        font-size:1.5em;
         bottom: 20px;
-            
-    text-shadow: 
-    hsla(51, 100%, 50%, 1) 0px 2px 0px,
-    hsla(51, 100%, 50%, 1) 2px 0px 0px,
-    hsla(51, 100%, 50%, 1) 0px -2px 0px,
-    hsla(51, 100%, 50%, 1) -2px 0px  0px,
-    hsla(51, 100%, 50%, 1) 2px 2px 0px,
-    hsla(51, 100%, 50%, 1) 2px -2px 0px,
-    hsla(51, 100%, 50%, 1) -2px -2px 0px,
-    hsla(51, 100%, 50%, 1) -2px 2px  0px;
+
+        text-shadow:
+                hsla(51, 100%, 50%, 1) 0px 2px 0px,
+                hsla(51, 100%, 50%, 1) 2px 0px 0px,
+                hsla(51, 100%, 50%, 1) 0px -2px 0px,
+                hsla(51, 100%, 50%, 1) -2px 0px  0px,
+                hsla(51, 100%, 50%, 1) 2px 2px 0px,
+                hsla(51, 100%, 50%, 1) 2px -2px 0px,
+                hsla(51, 100%, 50%, 1) -2px -2px 0px,
+                hsla(51, 100%, 50%, 1) -2px 2px  0px;
     }
     nav{
-        
+
         top: 0;
     }
     hero>h1 {
@@ -282,12 +282,12 @@ AMONG US
     }
     hero-container
     {
-        
+
         align-items: center;
-        
+
     }
     .container{
-    margin-top: 250px;
+        margin-top: 250px;
     }
 
     contactscontainer {
@@ -304,7 +304,7 @@ AMONG US
 
 }
 
-/* 
+/*
 
 all oethere
 
@@ -601,13 +601,13 @@ banner{
 }
 
 banner:hover{
-    
+
     filter: saturate(1);
     transform:translateY(-7px);
     box-shadow: 0px 14px 0px 0px hsla(211, 100%, 36%, 1);
 }
 banner:active{
-    
+
     transform:translateY(3px);
     border:3px hsla(51, 100%, 50%, 1) solid;
     box-shadow: 0px 4px 0px 0px hsla(211, 100%, 36%, 1);
@@ -633,11 +633,11 @@ banner > a{
     transform:translateY(-2px);
     box-shadow: 0px 7px 0px 0px hsla(211, 100%, 36%, 1);
     /*text-decoration:underline;*/
-    
+
 }
 
 banner > a:hover{
-    
+
     background-color: hsla(211, 100%, 36%, 1);
     color: rgb(255, 217, 0);
     border:2px rgb(255, 217, 0) solid;
@@ -675,7 +675,7 @@ centerbold
     animation-iteration-count: infinite;
 }
 @keyframes flicker {
-        
+
     0% { opacity:   0.5;}
     20% { opacity:  0.75;}
     30% { opacity:  0.65;}
@@ -685,7 +685,7 @@ centerbold
     100% { opacity: 0.5;}
 }
 @keyframes wiggle {
-        
+
     0% { transform: rotate(7deg);}
     50% { transform: rotate(-7deg);}
     100% { transform: rotate(7deg);}

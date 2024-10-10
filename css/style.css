@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'Euclid';
+    font-weight: 1 999;
+    src: url('fonts/AndroidEuclid-Medium.otf') format('opentype');
+}
+
+html {
+    font-family:'Lexend', sans-serif;
+    background: var(--bg-color);
+    color: var(--body-color);
+    user-select: none;
+    height: 100%;
+    width: 100%;
+
+}
+
+:root{
+    --bg-color: #251c4a;
+    --body-color: #fce2ca;
+}
+
+#topcontent{
+    display: table-column !important;
+}
+
+#hero {
+    animation: incheight 1s ease-in-out;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    text-orientation: upright !important;
+    letter-spacing: 0;
+    font-size: 4em;
+    top:0;
+}
+
+#name:hover {
+    animation: namehover 0.5s cubic-bezier(0, .95, .26, 1) forwards; /* Play the hover animation */
+    font-weight: 900;
+}
+
+#name:hover {
+    animation: namehover 0.8s cubic-bezier(0, .95, .26, 1) forwards; /* On hover */
+}
+
+#name:not(:hover) {
+    animation: namehover-reverse 0.5s cubic-bezier(0, .25, .26, 1) forwards; /* Reverse on hover out */
+}
+
+@keyframes namehover {
+    0% {
+        letter-spacing: 0;
+    }
+    100% {
+        letter-spacing: 0.95rem;
+    }
+}
+
+@keyframes namehover-reverse {
+    0% {
+        letter-spacing: 0.95rem;
+    }
+    100% {
+        letter-spacing: 0;
+    }
+}
+#name::before {
+    content: "SASHANK";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 8vh;
+    text-transform: uppercase;
+}
+.centerbold{
+    visibility: hidden;
+}
+
+@keyframes incheight {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 100vh;
+    }
+}
+
+#topcontent {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+#topcontent.visible {
+    opacity: 1; /* Make visible when class is added */
+}
+
+
+.name {
+    /*transform: rotate(90deg);*/
+    writing-mode: vertical-rl;
+    text-orientation: upright !important;
+    letter-spacing: -1.5rem;
+    font-size: 4em;
+    top:0px;
+
+}
+
+.name:hover {
+
+    letter-spacing: -0.95rem !important;
+    transition: letter-spacing 0.5s cubic-bezier(0, .95, .26, 1), font-weight 0.5s cubic-bezier(0, .95, .26, 1);
+    font-weight: 900;
+}

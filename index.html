@@ -1,88 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta property="og:title" content="Sashank • HOME">
-    <meta property="og:site_name" content="Sashanks's Website">
+    <meta property="og:site_name" content="Sashank's Website">
     <meta property="og:url" content="https://shas-v.web.app">
-    <meta property="og:description"
-          content="It's me! Sashank. If you happen to see this, thanks for sharing the site and you can contact me from here :D">
+    <meta property="og:description" content="It's me! Sashank. If you happen to see this, thanks for coming here and you can contact me from here :D">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://shas-v.web.app/jigsaw.PNG">
+    <meta property="og:image" content="Untitled.png">
     <meta name="theme-color" content="#b9ff99">
     <title>Sashank • HOME</title>
-    <script src=
-                    "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
-    </script>
+
+    <link rel="stylesheet" href="css/init.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 </head>
 
-
 <body>
-<div id="hamburg" draggable="false" class="navlink hamburgerBTN" href="#">+</div>
-<nav id="navbar">
-    <nav-list class="list" id="navlist">
-        <a draggable="false" class="navlink current" href="#home">
-            <nav-item> HOME</nav-item>
-        </a>
-        <a draggable="false" class="navlink" href="#about">
-            <nav-item> ABOUT ME</nav-item>
-        </a>
-        <a draggable="false" class="navlink" href="#portfolio">
-            <nav-item> STUFF MADE BY ME</nav-item>
-        </a>
-        <a draggable="false" class="navlink" href="#links">
-            <nav-item> LINKS</nav-item>
-        </a>
-    </nav-list>
-</nav>
-<hero-container id="home">
-    <hero>
-        <h1 class="woop"> SASHANK </h1>
-    </hero>
-</hero-container>
-<script type="text/javascript" src="js/stylechange.js"></script>
-<spacefix></spacefix>
-
-<br><br>
-
-
-<div id="about">
-
-    <div style="text-align: left; font-size: 20px; line-height:1.3" class="about">
-
-
-        <div style="font-size: 33px"> Hello! I am <strong>Sashank</strong>.</div>
-        <br><br>
-        I like games and programming.
-        <br><br>
-        I also like drawing, animating, and just about anything related to computer.
-        <br><br>
-        I have worked on many projects using different programming langauges.
-        <br><br>
-        My favorite font is Android Euclid (from Android website).
-        <br><br>
-        I accept anyone as friend as long as they don't cause more headache than I do to myself.
-        <br><br>
-        I am so capable of myself that I don't know what to do.
-
-    </div>
-
-
-
+<div id="topcontent">
+    <div id="hamburg" draggable="false">+</div>
+    <nav id="navbar">
+        <ul class="list" id="navlist">
+            <li><a draggable="false" class="navlink current" href="#home">HOME</a></li>
+            <li><a draggable="false" class="navlink" href="#about">ABOUT ME</a></li>
+            <li><a draggable="false" class="navlink" href="#portfolio">STUFF MADE BY ME</a></li>
+            <li><a draggable="false" class="navlink" href="#links">LINKS</a></li>
+        </ul>
+    </nav>
 </div>
 
-</body>
+<div id="ResumeContent">
+    <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button id="darkModeToggle" class="fluent-button">Dark Mode</button>
+        <button id="anotherButton" onclick="changeStyle('css/style.css')" class="fluent-button">CSS</button>
+    </div>
+
+    <section id="about">
+        <div class="about">
+            <div id="hero">
+            <div id="name">
+            <span class="centerbold"><strong>Sashank Vanka</strong></span>
+            </div>
+            </div>
+            <p style="display: flex; align-items: center; gap: 10px; justify-content: flex-end; font-size: 1em;">
+                <a href="mailto:sashankvanka@gmail.com" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                    <img class="icon" src="https://img.icons8.com/ios-filled/14/000000/email.png" alt="Email Icon">
+                    <span>sashankvanka@gmail.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/sashank-vanka" target="_blank" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                    <img class="icon" src="https://img.icons8.com/ios-filled/14/000000/linkedin.png" alt="LinkedIn Icon">
+                    <span>sashank-vanka</span>
+                </a>
+            </p>
+            <hr>
+        </div>
+    </section>
+
+    <div class="education">
+        <h2>Education</h2>
+        <ul style="font-size: 20px; line-height: 1.3;">
+            <li>
+                <h3>Bangalore Institute of Technology</h3>
+                <p>Bachelor of Engineering in Computer Science (Data Science)</p>
+                <p>September 2023 - May 2027</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="projects">
+        <h2>Projects</h2>
+        <ul style="font-size: 20px; line-height: 1.3;">
+            <li>
+                <h3>Urban Harvest</h3>
+                <p>Flutter, Firebase, Gemini</p>
+                <p>Urban Harvest connects local farmers with consumers, allowing farmers to list their produce and consumers to purchase them. The app also features donations to local food banks.</p>
+            </li>
+            <li>
+                <h3>Smart Home</h3>
+                <p>Python, Flask, Firebase, Raspberry Pi</p>
+                <p>Smart Home is a home automation system enabling users to control appliances remotely via a web application.</p>
+            </li>
+            <li>
+                <h3>Ultrasonic cam-SLAM</h3>
+                <p>Python, Pygame, OpenCV, Arduino</p>
+                <p>This robot uses SLAM to navigate and map environments with a camera and ultrasonic sensors.</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="skills">
+        <h2>Skills</h2>
+        <ul style="font-size: 20px; line-height: 1.3;">
+            <li>Programming Languages: Python, C, C++, Java, JavaScript, x86 Assembly</li>
+            <li>Web Development: HTML, CSS, React</li>
+            <li>Game Development: Unity, Blender</li>
+            <li>Design: Adobe XD, Figma</li>
+        </ul>
+    </div>
+
+    <div class="tools">
+        <h2>Tools</h2>
+        <ul style="font-size: 20px; line-height: 1.3;">
+            <li>Version Control: Git, GitHub</li>
+            <li>CI/CD: Docker</li>
+            <li>Cloud: AWS, Firebase, Google Cloud, Heroku</li>
+            <li>Databases: MySQL, MongoDB, CloudStore</li>
+            <li>IDE: JetBrains, Visual Studio Code</li>
+            <li>Operating Systems: Windows, Linux</li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/stylechange.js"></script>
 <script>
     document.getElementById("hamburg").addEventListener("click", () => {
         document.getElementById("navlist").classList.toggle("active");
         document.getElementById("navbar").classList.toggle("active");
         document.getElementById("hamburg").classList.toggle("active");
-    })
+    });
 </script>
-
+</body>
 
 </html>
