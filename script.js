@@ -39,8 +39,8 @@ function toggleTheme() {
 }
 
 // Create the scene
-const totalParticles = window.innerWidth < 1200 ? 4000 : 900;
-const orbSize = (window.innerHeight + window.innerWidth)/26^9;
+const totalParticles = window.innerWidth < 1200 ? 400 : 900;
+const orbSize = (window.innerHeight + window.innerWidth) / 26 ^ 9;
 const baseHue = 0;
 const animationDuration = 18;
 
@@ -191,3 +191,106 @@ function updateParticleColors() {
 
 }
 
+
+const cursor = document.querySelector('.custom-cursor');
+const cparticles = [];
+const PARTICLE_COUNT = window.innerHeight < 1200 ? 400 : 700;
+const INFLUENCE_RADIUS = 100;
+const FORCE_FACTOR = 0.15;
+const FRICTION = 0.85;
+const VISIBLE_DURATION = 1000; // Time in ms particles stay visible
+
+// Create background particles
+function createBackgroundParticles() {
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const particle = document.createElement("div");
+        particle.classList.add("particle");
+        document.getElementById('particles').appendChild(particle);
+
+        const pos = {
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            vx: 0,
+            vy: 0,
+            lastActive: 0 // Timestamp of last interaction
+        };
+
+        particle.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+        cparticles.push({element: particle, ...pos});
+    }
+}
+
+// Mouse position and movement tracking
+let mouseX = 0;
+let mouseY = 0;
+let prevMouseX = 0;
+let prevMouseY = 0;
+
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+// Animation loop
+function updateParticles() {
+    const deltaX = mouseX - prevMouseX;
+    const deltaY = mouseY - prevMouseY;
+    const now = Date.now();
+
+    cparticles.forEach(particle => {
+        // Calculate distance from cursor
+        const dx = mouseX - particle.x;
+        const dy = mouseY - particle.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Apply force if within influence radius
+        if (distance < INFLUENCE_RADIUS) {
+            const proximity = (INFLUENCE_RADIUS - distance) / INFLUENCE_RADIUS;
+            const forceX = deltaX * FORCE_FACTOR * proximity;
+            const forceY = deltaY * FORCE_FACTOR * proximity;
+
+            particle.vx += forceX;
+            particle.vy += forceY;
+
+            // Make particle visible and reset its visibility timer
+            particle.element.style.opacity = "1";
+            particle.lastActive = now;
+        }
+
+        // Update physics
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vx *= FRICTION;
+        particle.vy *= FRICTION;
+
+        // Apply boundaries
+        if (particle.x < 0) particle.x = window.innerWidth;
+        if (particle.x > window.innerWidth) particle.x = 0;
+        if (particle.y < 0) particle.y = window.innerHeight;
+        if (particle.y > window.innerHeight) particle.y = 0;
+
+        // Update position
+        particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
+
+        // Hide particle if it hasn't been active for a while
+        if (now - particle.lastActive > VISIBLE_DURATION) {
+            particle.element.style.opacity = "0";
+        }
+    });
+
+    prevMouseX = mouseX;
+    prevMouseY = mouseY;
+    requestAnimationFrame(updateParticles);
+}
+
+// Initialize
+createBackgroundParticles();
+updateParticles();
+
+// Your existing hover effects
+document.querySelectorAll("a, button").forEach((el) => {
+    el.addEventListener("mouseenter", () => cursor.classList.add("hover"));
+    el.addEventListener("mouseleave", () => cursor.classList.remove("hover"));
+})

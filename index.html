@@ -16,6 +16,10 @@
     <div class="nav-brand">
         <span class="nav-name">S</span>
     </div>
+        <a class="navbar-toggle" onclick="toggleNav()">
+        <i class="fa fa-bars"></i>
+    </a>
+
     <div class="nav-links">
         <a href="#home">Home</a>
         <a href="#projects">Projects</a>
@@ -31,16 +35,16 @@
     <div class="hero-content">
         <p class="hero-subtitle">Hello world!, I'm</p>
         <h1 class="hero-title">Sashank</h1>
-        <p class="hero-subtitle">
+        <p id="change" class="hero-subtitle">
             Digital Craftsman.
 
         </p>
         <div class="seperator"></div>
         <div class="social-links">
-            <a href="https://github.com/Sashank-05" target="_blank" aria-label="GitHub">
+            <a href="https://github.com/Sashank-05" id="githlogo" target="_blank" aria-label="GitHub">
                 <i class="fab fa-github"></i>
             </a>
-            <a href="https://linkedin.com/in/sashank-vanka" target="_blank" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/sashank-vanka" id="linklogo" target="_blank" aria-label="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
             </a>
         </div>
@@ -56,10 +60,10 @@
     <h2>Latest Thoughts</h2>
     <div class="blog-grid">
         <div class="blog-card">
-            <h2>
+            <h3>
                 Writing a simple autocomplete
-            </h2>
-            <h3>Markov chains are fun..</h3>
+            </h3>
+            <p>Markov chains are fun..</p>
         </div>
         <div class="blog-card">Blog Post 2</div>
     </div>
@@ -87,111 +91,6 @@
     </form>
 </section>
 
-<script>
-const cursor = document.querySelector('.custom-cursor');
-const cparticles = [];
-const PARTICLE_COUNT =  800;
-const INFLUENCE_RADIUS = 100;
-const FORCE_FACTOR = 0.15;
-const FRICTION = 0.85;
-const VISIBLE_DURATION = 1000; // Time in ms particles stay visible
-
-// Create background particles
-function createBackgroundParticles() {
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const particle = document.createElement("div");
-        particle.classList.add("particle");
-        document.getElementById('particles').appendChild(particle);
-
-        const pos = {
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            vx: 0,
-            vy: 0,
-            lastActive: 0 // Timestamp of last interaction
-        };
-
-        particle.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
-        cparticles.push({ element: particle, ...pos });
-    }
-}
-
-// Mouse position and movement tracking
-let mouseX = 0;
-let mouseY = 0;
-let prevMouseX = 0;
-let prevMouseY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    cursor.style.left = `${e.clientX}px`;
-    cursor.style.top = `${e.clientY}px`;
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-// Animation loop
-function updateParticles() {
-    const deltaX = mouseX - prevMouseX;
-    const deltaY = mouseY - prevMouseY;
-    const now = Date.now();
-
-    cparticles.forEach(particle => {
-        // Calculate distance from cursor
-        const dx = mouseX - particle.x;
-        const dy = mouseY - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        // Apply force if within influence radius
-        if (distance < INFLUENCE_RADIUS) {
-            const proximity = (INFLUENCE_RADIUS - distance) / INFLUENCE_RADIUS;
-            const forceX = deltaX * FORCE_FACTOR * proximity;
-            const forceY = deltaY * FORCE_FACTOR * proximity;
-
-            particle.vx += forceX;
-            particle.vy += forceY;
-
-            // Make particle visible and reset its visibility timer
-            particle.element.style.opacity = "1";
-            particle.lastActive = now;
-        }
-
-        // Update physics
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.vx *= FRICTION;
-        particle.vy *= FRICTION;
-
-        // Apply boundaries
-        if (particle.x < 0) particle.x = window.innerWidth;
-        if (particle.x > window.innerWidth) particle.x = 0;
-        if (particle.y < 0) particle.y = window.innerHeight;
-        if (particle.y > window.innerHeight) particle.y = 0;
-
-        // Update position
-        particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
-
-        // Hide particle if it hasn't been active for a while
-        if (now - particle.lastActive > VISIBLE_DURATION) {
-            particle.element.style.opacity = "0";
-        }
-    });
-
-    prevMouseX = mouseX;
-    prevMouseY = mouseY;
-    requestAnimationFrame(updateParticles);
-}
-
-// Initialize
-createBackgroundParticles();
-updateParticles();
-
-// Your existing hover effects
-document.querySelectorAll("a, button").forEach((el) => {
-    el.addEventListener("mouseenter", () => cursor.classList.add("hover"));
-    el.addEventListener("mouseleave", () => cursor.classList.remove("hover"));
-})
-
-</script>
 <!-- Scripts -->
 <!-- Three.js Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
