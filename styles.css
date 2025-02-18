@@ -40,17 +40,26 @@ body {
     position: fixed;
     pointer-events: none;
     transform: translate(-50%, -50%);
-    transition: width 0.15s ease, height 0.15s ease;
+    transition: width 0.15s ease, height 0.15s ease;/*, left 0.015s step-end, top 0.015s step-end;*/
     mix-blend-mode: difference; /* Inverts colors inside the cursor */
     background: rgba(255, 255, 255, 0.9); /* Slight fill to help visibility */
     z-index: 9999;
+    left: 0;
+    top: 0;
 }
 
 /* Cursor effect when hovering over clickable elements */
 .custom-cursor.hover {
     width: 60px;
     height: 60px;
-    transition:  ease-in-out 0.1s height, ease-in-out 0.1s width;
+    transition: ease-in-out 0.1s height, ease-in-out 0.1s width;
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.custom-cursor.small {
+    width: 30px;
+    height: 30px;
+    transition: ease-in-out 0.1s height, ease-in-out 0.1s width;
     border-color: rgba(255, 255, 255, 0.9);
 }
 
@@ -65,6 +74,7 @@ body {
     transition: transform 0.3s ease-out, opacity 0.5s ease-out;
     opacity: 0; /* Start hidden */
 }
+
 /* Navbar */
 .navbar {
     position: fixed;
@@ -126,7 +136,7 @@ body {
     color: var(--background);
 }
 
-.seperator{
+.seperator {
     width: 60.8%;
     height: 1.1rem;
     background: var(--text);
@@ -243,7 +253,7 @@ body.dark-theme .theme-toggle::before {
 
 .hero-title {
     font-size: 6rem;
-    right: 3px ;
+    right: 3px;
     letter-spacing: -0.05em;
     margin-bottom: 1rem;
     position: relative;
@@ -265,12 +275,12 @@ body.dark-theme .theme-toggle::before {
 }
 
 @keyframes fadeInMove {
-    0%{
+    0% {
         opacity: 0;
         transform: translateX(-10px);
     }
 
-    100%{
+    100% {
         opacity: 1;
         transform: translateX(5px);
     }
@@ -281,6 +291,7 @@ body.dark-theme .theme-toggle::before {
 /* Globe Container for Three.js */
 #globe-container {
     z-index: -2;
+
 }
 
 /* Sections */
@@ -307,9 +318,16 @@ body.dark-theme .theme-toggle::before {
 .blog-card {
     padding: 2rem;
     border: 2px solid var(--text);
-    width: 100%;
-    max-width: 400px;
+    width: 40%
 
+
+}
+
+.blog-card.active{
+    background: var(--background);
+    height: 500px;
+    width: 700px;
+    padding: 2rem;
 }
 
 .contact-form {
@@ -393,6 +411,10 @@ body.dark-theme .theme-toggle::before {
 }
 
 @media (max-width: 768px) {
+    .custom-cursor {
+        display: none;
+    }
+
     .navbar-toggle {
         display: block;
         font-size: 2rem;
@@ -416,5 +438,69 @@ body.dark-theme .theme-toggle::before {
         padding: 1rem;
     }
 }
+
+#thisyear {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dot-container {
+    position: relative;
+    width: min(90vw, 600px);
+    height: min(90vw, 600px);
+}
+
+.day-dot {
+    --size: 10px;
+    width: var(--size);
+    height: var(--size);
+    background: var(--text);
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+    cursor: none;
+    transform: scale(0.8);
+}
+
+.day-dot:hover {
+    transform: scale(1.6); /* Scale up without affecting layout */
+    z-index: 100;
+}
+
+.day-dot.today {
+    transform: scale(2.5);
+    border: grey;
+}
+
+.day-dot.past {
+    transform: scale(1.4);
+}
+
+.dot-container {
+    display: grid;
+    grid-template-columns: repeat(30, auto); /* Ensure fixed columns */
+    gap: 15px; /* Adjust spacing between dots */
+    width: min(90vw, 600px);
+    height: min(90vw, 600px);
+    justify-content: center;
+}
+
+
+.tooltip {
+    position: absolute;
+    background: var(--background);
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--text);
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
 
 

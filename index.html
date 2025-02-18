@@ -16,7 +16,7 @@
     <div class="nav-brand">
         <span class="nav-name">S</span>
     </div>
-        <a class="navbar-toggle" onclick="toggleNav()">
+    <a class="navbar-toggle" onclick="toggleNav()">
         <i class="fa fa-bars"></i>
     </a>
 
@@ -91,13 +91,22 @@
     </form>
 </section>
 
+
+<section id="thisyear">
+</section>
+
 <!-- Scripts -->
 <!-- Three.js Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <!-- Particles.js Library -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script src="script.js">
+<script src="script.js"></script>
+<script>
+    function toggleNav() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+    }
 </script>
 </body>
 </html>

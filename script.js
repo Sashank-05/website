@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let Ltheme = true;
+let isPaused = false;
 
 function setInitialTheme() {
     const savedTheme =
@@ -39,7 +40,7 @@ function toggleTheme() {
 }
 
 // Create the scene
-const totalParticles = window.innerWidth < 1200 ? 400 : 900;
+let totalParticles = window.innerWidth < 1200 ? 400 : 900;
 const orbSize = (window.innerHeight + window.innerWidth) / 26 ^ 9;
 const baseHue = 0;
 const animationDuration = 18;
@@ -152,23 +153,120 @@ scene.add(particles);
 const clock = new THREE.Clock();
 let time = 0;
 
+let fps = 0;
+let lastFrameTime = performance.now();
+
 function animate() {
-    requestAnimationFrame(animate);
+    if (!isPaused) {
+        animateFrame = setTimeout(() => {
+            requestAnimationFrame(animate);
+        }, 1000 / 60); // 60 FPS
 
-    time = clock.getElapsedTime();
-    material.uniforms.time.value = time;
+        let now = performance.now();
+        let delta = now - lastFrameTime;
+        lastFrameTime = now;
 
-    // Rotate system
-    const rotationSpeed = (Math.PI * 2) / animationDuration;
-    particles.rotation.y = time * rotationSpeed;
-    particles.rotation.x = time * rotationSpeed;
+        fps = Math.round(1000 / delta); // Convert time delta to FPS
 
+        material.uniforms.time.value = clock.getElapsedTime();
+        particles.rotation.y += 0.001;
+        particles.rotation.x += 0.001;
 
-    renderer.render(scene, camera);
+        renderer.render(scene, camera);
+
+        updateFPSText(); // Display FPS
+    }
 }
 
-animate();
+let newColors;
 
+document.addEventListener('click', (event) => {
+    const clickedBlogCard = event.target.closest('.blog-card');
+    if (clickedBlogCard) {
+        clickedBlogCard.classList.toggle('active');
+    }
+});
+
+
+function updateFPSText() {
+    if (fps < 15 && fps > 5 && totalParticles > 300) { // Ensure we don't remove all particles
+
+        // make all particles on page invisible
+        //document.querySelector("#particles").style.opacity = "0"
+
+        console.log("Reducing particles to improve performance");
+
+        // Reduce particle count
+        totalParticles = Math.floor(totalParticles / 2);
+
+        // Create new Float32Arrays for the reduced set
+        const newPositions = new Float32Array(totalParticles * 3);
+        newColors = new Float32Array(totalParticles * 3);
+        const newDelays = new Float32Array(totalParticles);
+        const newDirections = new Float32Array(totalParticles * 3);
+
+        // Copy only the first half of existing data
+        for (let i = 0; i < totalParticles; i++) {
+            newPositions[i * 3] = positions[i * 3];
+            newPositions[i * 3 + 1] = positions[i * 3 + 1];
+            newPositions[i * 3 + 2] = positions[i * 3 + 2];
+
+            newColors[i * 3] = colors[i * 3];
+            newColors[i * 3 + 1] = colors[i * 3 + 1];
+            newColors[i * 3 + 2] = colors[i * 3 + 2];
+
+            newDelays[i] = delays[i];
+
+            newDirections[i * 3] = directions[i * 3];
+            newDirections[i * 3 + 1] = directions[i * 3 + 1];
+            newDirections[i * 3 + 2] = directions[i * 3 + 2];
+        }
+
+        // Assign new attributes
+        geometry.setAttribute('position', new THREE.BufferAttribute(newPositions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(newColors, 3));
+        geometry.setAttribute('delay', new THREE.BufferAttribute(newDelays, 1));
+        geometry.setAttribute('direction', new THREE.BufferAttribute(newDirections, 3));
+
+        // Mark them as needing an update
+        geometry.attributes.position.needsUpdate = true;
+        geometry.attributes.color.needsUpdate = true;
+        geometry.attributes.delay.needsUpdate = true;
+        geometry.attributes.direction.needsUpdate = true;
+    }
+    if (fps < 10 && totalParticles <= 300) {
+        console.log("FPS is less than 10");
+        cancelAnimationFrame(animateFrame);
+    }
+}
+
+
+/* Handle tab visibility changes
+document.addEventListener('visibilitychange', () => {
+    isPaused = document.hidden;
+    if (!isPaused) {
+        clock.start();
+        animate();
+    }
+});
+
+let animateFrame; // Store animation frame ID
+
+Detect when cursor leaves the page
+document.addEventListener("mouseleave", () => {
+    cancelAnimationFrame(animateFrame); // Pause animation
+    console.log("Mouse left the page");
+    //renderer.domElement.style.opacity = "0"; // Hide Three.js canvas
+    // document.querySelector("#particles").style.opacity = "0"; // Hide cursor particles
+});
+
+// Detect when cursor enters the page
+document.addEventListener("mouseenter", () => {
+    //renderer.domElement.style.opacity = "1"; // Show Three.js canvas
+    // document.querySelector("#particles").style.opacity = "1"; // Show cursor particles
+    animateFrame = requestAnimationFrame(animate); // Resume animation
+});
+*/
 // Handle resize
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -183,6 +281,13 @@ function updateParticleColors() {
         colors[i * 3] = newLightness;
         colors[i * 3 + 1] = newLightness;
         colors[i * 3 + 2] = newLightness;
+
+        // update new colors if they exist
+        if (newColors) {
+            newColors[i * 3] = newLightness;
+            newColors[i * 3 + 1] = newLightness;
+            newColors[i * 3 + 2] = newLightness;
+        }
 
     }
 
@@ -294,3 +399,81 @@ document.querySelectorAll("a, button").forEach((el) => {
     el.addEventListener("mouseenter", () => cursor.classList.add("hover"));
     el.addEventListener("mouseleave", () => cursor.classList.remove("hover"));
 })
+
+
+// Optimized Three.js setup
+
+
+// This Year Dots
+const createYearDots = () => {
+    const container = document.createElement('div');
+    container.className = 'dot-container';
+    document.getElementById('thisyear').appendChild(container);
+
+    const today = new Date();
+    const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    const daysInYear = isLeapYear(today.getFullYear()) ? 366 : 365;
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+
+    // Define grid dimensions
+    const cols = 30; // Number of columns
+    const rows = Math.ceil(daysInYear / cols); // Number of rows
+
+    container.style.display = 'grid';
+    container.style.gridTemplateColumns = `repeat(${cols}, auto)`;
+
+    for (let i = 0; i < daysInYear; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'day-dot' +
+            (i < dayOfYear ? ' past' : '') +  // Add 'past' class if the day is before today
+            (i === dayOfYear ? ' today' : '');
+        dot.dataset.day = i + 1;
+        dot.style.position = 'static';
+
+        // Tooltip
+        dot.addEventListener('mousemove', (e) => {
+            const tooltip = document.getElementById('tooltip') || createTooltip();
+            const date = new Date(today.getFullYear(), 0, i + 1);
+            tooltip.textContent = date.toLocaleDateString();
+            tooltip.style.left = `${e.pageX + 15}px`;
+            tooltip.style.top = `${e.pageY + 15}px`;
+            tooltip.style.opacity = '1';
+
+            cursor.classList.add("small");
+        });
+
+        dot.addEventListener('mouseleave', () => {
+            const tooltip = document.getElementById('tooltip');
+            if (tooltip) tooltip.style.opacity = '0';
+
+            cursor.classList.remove("small");
+        });
+
+        container.appendChild(dot);
+    }
+};
+const createTooltip = () => {
+    const tooltip = document.createElement('div');
+    tooltip.id = 'tooltip';
+    tooltip.className = 'tooltip';
+    document.body.appendChild(tooltip);
+    return tooltip;
+};
+
+// Initialize optimized
+document.addEventListener('DOMContentLoaded', () => {
+    createYearDots();
+
+    // Debounce resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            document.querySelector('.dot-container')?.remove();
+            createYearDots();
+        }, 100);
+    });
+});
+
+
+animate();
