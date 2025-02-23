@@ -306,29 +306,65 @@ body.dark-theme .theme-toggle::before {
     margin-bottom: 4rem;
 }
 
-.projects-grid,
 .blog-grid {
-    display: grid;
-    gap: 3rem;
-    align-items: center;
-
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.project-card,
 .blog-card {
+    position: relative;
     padding: 2rem;
     border: 2px solid var(--text);
-    width: 40%
-
-
-}
-
-.blog-card.active{
+    width: 40%;
+    height: 10%;
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+    cursor: pointer;
     background: var(--background);
-    height: 500px;
-    width: 700px;
-    padding: 2rem;
 }
+
+.blog-card .content {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out 0.4s; /* Delayed fade-in */
+}
+
+/* Expanding card effect */
+.blog-card.active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    border-width: 4px;
+    background: var(--background);
+    transform: translate(-50%, -50%);
+    animation: expand 0.3s ease-in-out forwards;
+}
+
+.blog-card.active .content {
+    opacity: 1;
+}
+
+/* Expansion animation */
+@keyframes expand {
+    0% {
+        width: 40%;
+        height: 10%;
+        border-width: 2px;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        width: 85vw;
+        height: 70vh;
+        border-width: 4px;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+
 
 .contact-form {
     display: flex;
